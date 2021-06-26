@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.txazo.java.samples.mvc.mapper.OrderMapper">
+
+    <sql id="setField">
+        <set>
+            <if test="orderId">
+                order_id = #{orderId,jdbcType=VARCHAR}
+            </if>
+        </set>
+    </sql>
+
+    <insert id="insert" parameterType="orderDO">
+        INSERT INTO t_order
+        <include refid="setField"/>
+    </insert>
+
+    <update id="update" parameterType="orderDO">
+        UPDATE t_order
+        <include refid="setField"/>
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete" parameterType="java.lang.Integer">
+        DELETE FROM t_order
+        <include refid="setField"/>
+        WHERE id = #{id}
+    </update>
+
+    <select id="get" resultType="orderDO">
+        SELECT *
+        FROM t_order
+        WHERE id = #{id}
+    </select>
+
+    <select id="getList" resultType="orderDO">
+        SELECT *
+        FROM t_order
+        WHERE id in
+        <foreach collection="idList" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="query" resultType="orderDO">
+        SELECT *
+        FROM t_order
+        WHERE 1 = 1
+    </select>
+
+    <select id="queryTotal" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM t_order
+        WHERE 1 = 1
+    </select>
+
+</mapper>
