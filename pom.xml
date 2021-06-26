@@ -19,6 +19,7 @@
 
     <modules>
         <module>java-samples-mvc</module>
+        <module>java-samples-netty</module>
         <module>java-samples-sdk</module>
     </modules>
 
