@@ -2,10 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.txazo.java.samples.mvc.mapper.OrderMapper">
 
+    <resultMap id="BaseResultMap" type="org.txazo.java.samples.mvc.entity.OrderDO">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="order_id" jdbcType="VARCHAR" property="orderId"/>
+        <result column="buyer_id" jdbcType="BIGINT" property="buyerId"/>
+    </resultMap>
+
     <sql id="setField">
         <set>
             <if test="orderId">
                 order_id = #{orderId,jdbcType=VARCHAR}
+            </if>
+            <if test="buyerId">
+                buyer_id = #{buyerId,jdbcType=BIGINT}
             </if>
         </set>
     </sql>
@@ -21,19 +30,18 @@
         WHERE id = #{id}
     </update>
 
-    <update id="delete" parameterType="java.lang.Integer">
+    <update id="delete" parameterType="java.lang.Long">
         DELETE FROM t_order
-        <include refid="setField"/>
         WHERE id = #{id}
     </update>
 
-    <select id="get" resultType="orderDO">
+    <select id="get" parameterType="java.lang.Long" resultMap="BaseResultMap">
         SELECT *
         FROM t_order
         WHERE id = #{id}
     </select>
 
-    <select id="getList" resultType="orderDO">
+    <select id="getList" resultMap="BaseResultMap">
         SELECT *
         FROM t_order
         WHERE id in
@@ -42,16 +50,37 @@
         </foreach>
     </select>
 
-    <select id="query" resultType="orderDO">
+    <select id="query" parameterType="org.txazo.java.tools.mvc.common.Query" resultMap="BaseResultMap">
         SELECT *
         FROM t_order
         WHERE 1 = 1
+        <foreach collection="whereMap.entrySet()" index="key" item="value" open="" close="" separator="">
+            and ${key} = #{value}
+        </foreach>
+        <foreach collection="whereSqlMap.entrySet()" index="key" item="value" open="" close="" separator="">
+            and ${key} #{value}
+        </foreach>
+        <if test="orderByList != null">
+            order by
+            <foreach collection="orderByList" item="item" separator=",">
+                ${item.field} ${item.order}
+            </foreach>
+        </if>
+        <if test="offset != null and limit != null">
+            limit #{offset},#{limit}
+        </if>
     </select>
 
-    <select id="queryTotal" resultType="java.lang.Integer">
+    <select id="queryTotal" parameterType="org.txazo.java.tools.mvc.common.Query" resultType="java.lang.Integer">
         SELECT count(1)
         FROM t_order
         WHERE 1 = 1
+        <foreach collection="whereMap.entrySet()" index="key" item="value" open="" close="" separator="">
+            and ${key} = #{value}
+        </foreach>
+        <foreach collection="whereSqlMap.entrySet()" index="key" item="value" open="" close="" separator="">
+            and ${key} #{value}
+        </foreach>
     </select>
 
 </mapper>
