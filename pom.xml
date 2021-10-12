@@ -22,6 +22,7 @@
         <module>java-samples-mvc</module>
         <module>java-samples-netty</module>
         <module>java-samples-sdk</module>
+        <module>java-samples-spring</module>
     </modules>
 
     <properties>
