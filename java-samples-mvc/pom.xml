@@ -17,8 +17,6 @@
             <groupId>org.txazo</groupId>
             <artifactId>java-tools-mvc</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>/Users/dzsb-000852/JavaProject/java-tools/java-tools-mvc/target/java-tools-mvc-1.0.0-SNAPSHOT.jar</systemPath>
         </dependency>
 
         <dependency>

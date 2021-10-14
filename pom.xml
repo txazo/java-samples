@@ -18,6 +18,7 @@
     <url>https://github.com/txazo/java-samples</url>
 
     <modules>
+        <module>java-flink</module>
         <module>java-samples-lombok</module>
         <module>java-samples-mvc</module>
         <module>java-samples-netty</module>
