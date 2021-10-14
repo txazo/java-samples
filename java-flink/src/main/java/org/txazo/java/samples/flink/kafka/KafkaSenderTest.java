@@ -17,14 +17,20 @@ public class KafkaSenderTest {
     private static final String[] PATH_SET = new String[]{"/index", "/user", "/home", "/order"};
 
     /**
+     * 1、安装kafka
      * brew install kafka
+     * <p>
+     * 2、启动kafka
      * cd /usr/local/Cellar/kafka/3.0.0
      * zookeeper-server-start /usr/local/etc/kafka/zookeeper.properties
      * kafka-server-start /usr/local/etc/kafka/server.properties
+     * <p>
+     * 3、创建topic
      * kafka-topics --create --bootstrap-server 127.0.0.1:9092 --replication-factor 1 --partitions 1 --topic flink-kafka-input-topic
      * kafka-topics --create --bootstrap-server 127.0.0.1:9092 --replication-factor 1 --partitions 1 --topic flink-kafka-ouput-topic
      * kafka-topics --list --bootstrap-server 127.0.0.1:9092
      * <p>
+     * 4、消费topic
      * kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic flink-kafka-input-topic --from-beginning
      * kafka-console-consumer --bootstrap-server 127.0.0.1:9092 --topic flink-kafka-ouput-topic --from-beginning
      */
